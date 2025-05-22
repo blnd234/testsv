@@ -124,7 +124,7 @@
 
     <div class="profile-card">
         <div class="profile-image">
-            <img src="{{ asset('assets/image/IMG_4890.JPG') }}" alt="My Image">
+            <img src="assets/image/IMG_4890.JPG" alt="My Image">
         </div>
 
         <div class="username">
