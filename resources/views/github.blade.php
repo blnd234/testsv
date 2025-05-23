@@ -116,15 +116,9 @@
 </style>
 
 <div class="container">
-    {{-- Optional header --}}
-    {{-- <div class="header">
-        <h1>My GitHub Profile</h1>
-        <p class="description">This is a custom card showing my GitHub stats.</p>
-    </div> --}}
-
     <div class="profile-card">
         <div class="profile-image">
-            <img src="{{ asset('assets/image/IMG_4890.JPG') }}">
+            <img src="{{ asset('assets/image/Me.JPG') }}">
         </div>
 
         <div class="username">
