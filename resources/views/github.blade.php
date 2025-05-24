@@ -118,7 +118,7 @@
 <div class="container">
     <div class="profile-card">
         <div class="profile-image">
-            <img src="{{ asset('image/me.JPG') }}" alt="image">
+            <img src="{{ asset('storage/img/IMG_4890.JPG') }}" alt="image">
         </div>
 
         <div class="username">

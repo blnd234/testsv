@@ -69,7 +69,7 @@
     <div class="cards mt-3">
         <div class="card">
             <h4><span class="span">Laravel</span></h4>
-                <img src="{{ asset('assets/image/IMG_4890.JPG') }}" alt="Profile Image">
+                <img src="{{ asset('storage/img/IMG_4890.JPG') }}" alt="Profile Image">
             <p class="laravel mt-5">Laravel: PHP framework for elegant, fast, and secure web development.</p>
         </div>
 
