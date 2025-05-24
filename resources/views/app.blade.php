@@ -69,19 +69,19 @@
     <div class="cards mt-3">
         <div class="card">
             <h4><span class="span">Laravel</span></h4>
-                <img src="vercel.com/storage/img/IMG_4890.JPG" alt="Profile Image">
+                <img src="{{ asset('image/Laravel-Logo.wine.png') }}" style="width: 200px;" alt="image">
             <p class="laravel mt-5">Laravel: PHP framework for elegant, fast, and secure web development.</p>
         </div>
 
         <div class="card">
             <h4><span class="span">Bootstrap</span></h4>
-            <img src="../image/bot.png" alt="">
-            <p class="laravel">Bootstrap: CSS framework for responsive, mobile-first, and modern web design.</p>
+            <img src="{{ asset('image/62a76492bd73a4af5c5d4fb9.png') }}" alt="image">
+            <p class="laravel mt-5">Bootstrap: CSS framework for responsive, mobile-first, and modern web design.</p>
         </div>
 
         <div class="card">
             <h4><span class="span">HTML & CSS</span></h4>
-            <img src="../image/css.png" alt="">
+            <img src="{{ asset('image/6947a7a0a99471e5e4fc0cce69a05c13.png') }}" alt="image">
             <p class="laravel">
                 HTML: Structures web content using elements and tags.<br>
                 CSS: Styles HTML with colors, layouts, and fonts.
@@ -90,20 +90,26 @@
 
         <div class="card">
             <h4><span class="span">Livewire</span></h4>
-            <img src="../image/livewire_.png" alt="">
+            <img src="{{ asset('image/livewire_.png') }}" alt="image">
             <p class="laravel">Livewire: Laravel package for building dynamic interfaces using Blade and PHP.</p>
         </div>
 
         <div class="card">
             <h4><span class="span">PHP</span></h4>
-            <img src="../image/pngwing.com (2).png" alt="">
+            <img src="{{ asset('image/pngwing.com (2).png') }}" alt="image">
             <p class="laravel">PHP: Server-side scripting language for dynamic websites and web applications.</p>
         </div>
 
         <div class="card">
             <h4><span class="span">Adobe Photoshop</span></h4>
-            <img src="../image/adobe-photoshop-logo-2021.svg" alt="">
+            <img src="{{ asset('image/adobe-photoshop-logo-0.png') }}" alt="image">
             <p class="laravel">Adobe Photoshop: Powerful software for image editing, design, and digital art.</p>
+        </div>
+
+        <div class="card">
+            <h4><span class="span">Adobe Illustrator</span></h4>
+            <img src="{{ asset('image/Adobe_Illustrator-Logo.wine.png') }}" alt="image">
+            <p class="laravel mt-4">Adobe Illustrator: Vector design tool for creative professionals.</p>
         </div>
     </div>
 </div>

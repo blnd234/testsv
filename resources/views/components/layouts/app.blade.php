@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Studio Code - Portfolio</title>
+    <link rel="icon" type="image/png" href="{{ asset('image/pngwing.com (4).png') }}">
+    <title >Visual Studio Code - Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -594,94 +595,212 @@
         </div>
     </div>
 
-    <script>
-        // Simple tab switching functionality
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                // Remove active class from all tabs
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                // Add active class to clicked tab
-                this.classList.add('active');
+   <script>
+        // Complete JavaScript fix for sidebar navigation with event delegation
+        // This ensures all functionality works after Livewire page switches
+
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ===============================
+            // BURGER MENU FUNCTIONALITY
+            // ===============================
+            
+            // Use event delegation for burger menu clicks
+            document.addEventListener('click', function(event) {
+                const burgerMenu = document.getElementById('burgerMenu');
+                const sidebar = document.getElementById('sidebar');
                 
-                // Update file explorer selection
-                document.querySelectorAll('.file').forEach(f => f.classList.remove('active'));
-                const filename = this.querySelector('span:last-child').textContent;
+                // Handle burger menu click
+                if (event.target.closest('#burgerMenu')) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (sidebar) {
+                        sidebar.classList.toggle('open');
+                    }
+                    return;
+                }
+                
+                // Handle clicks outside sidebar to close it
+                const isClickInsideSidebar = sidebar && sidebar.contains(event.target);
+                const isClickOnBurger = burgerMenu && burgerMenu.contains(event.target);
+                
+                if (!isClickInsideSidebar && !isClickOnBurger && window.innerWidth <= 992) {
+                    if (sidebar && sidebar.classList.contains('open')) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+            
+            // ===============================
+            // TAB SWITCHING FUNCTIONALITY
+            // ===============================
+            
+            // Use event delegation for tab clicks
+            document.addEventListener('click', function(event) {
+                const clickedTab = event.target.closest('.tab');
+                if (clickedTab) {
+                    event.preventDefault();
+                    
+                    // Remove active class from all tabs
+                    document.querySelectorAll('.tab').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked tab
+                    clickedTab.classList.add('active');
+                    
+                    // Update file explorer selection to match
+                    const tabFilename = clickedTab.querySelector('span:last-child')?.textContent;
+                    if (tabFilename) {
+                        updateFileExplorerSelection(tabFilename);
+                    }
+                }
+            });
+            
+            // ===============================
+            // FILE EXPLORER FUNCTIONALITY
+            // ===============================
+            
+            // Use event delegation for file clicks in sidebar
+            document.addEventListener('click', function(event) {
+                const clickedFile = event.target.closest('.file');
+                if (clickedFile) {
+                    event.preventDefault();
+                    
+                    // Remove active class from all files
+                    document.querySelectorAll('.file').forEach(file => {
+                        file.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked file
+                    clickedFile.classList.add('active');
+                    
+                    // Update tab selection to match
+                    const filename = clickedFile.querySelector('span:last-child')?.textContent;
+                    if (filename) {
+                        updateTabSelection(filename);
+                    }
+                    
+                    // Close sidebar on mobile after file selection
+                    if (window.innerWidth <= 992) {
+                        const sidebar = document.getElementById('sidebar');
+                        if (sidebar) {
+                            sidebar.classList.remove('open');
+                        }
+                    }
+                }
+            });
+            
+        
+            
+            function updateFileExplorerSelection(filename) {
                 document.querySelectorAll('.file').forEach(file => {
-                    if (file.querySelector('span:last-child').textContent === filename) {
+                    file.classList.remove('active');
+                    const fileSpan = file.querySelector('span:last-child');
+                    if (fileSpan && fileSpan.textContent === filename) {
                         file.classList.add('active');
                     }
                 });
-            });
-        });
-
-        // File explorer click functionality
-        document.querySelectorAll('.file').forEach(file => {
-            file.addEventListener('click', function() {
-                // Remove active class from all files
-                document.querySelectorAll('.file').forEach(f => f.classList.remove('active'));
-                // Add active class to clicked file
-                this.classList.add('active');
-                
-                // Update tab selection
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                const filename = this.querySelector('span:last-child').textContent;
+            }
+            
+            function updateTabSelection(filename) {
                 document.querySelectorAll('.tab').forEach(tab => {
-                    if (tab.querySelector('span:last-child').textContent === filename) {
+                    tab.classList.remove('active');
+                    const tabSpan = tab.querySelector('span:last-child');
+                    if (tabSpan && tabSpan.textContent === filename) {
                         tab.classList.add('active');
                     }
                 });
-            });
-        });
-
-        // Burger menu functionality
-        const burgerMenu = document.getElementById('burgerMenu');
-        const sidebar = document.getElementById('sidebar');
-        
-        burgerMenu.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
-        });
-
-        // Close sidebar when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideSidebar = sidebar.contains(event.target);
-            const isClickOnBurger = burgerMenu.contains(event.target);
+            }
             
-            if (!isClickInsideSidebar && !isClickOnBurger && window.innerWidth <= 992) {
-                sidebar.classList.remove('open');
+            function updateActiveStates() {
+                const path = window.location.pathname;
+                let activeFile = 'home.tsx';
+                
+                // Determine active file based on current path
+                if (path.includes('about')) {
+                    activeFile = 'about.html';
+                } else if (path.includes('contact')) {
+                    activeFile = 'contact.css';
+                } else if (path.includes('app')) {
+                    activeFile = 'app.js';
+                } else if (path.includes('github')) {
+                    activeFile = 'github.md';
+                }
+                
+                // Update tabs active state
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.remove('active');
+                    const tabSpan = tab.querySelector('span:last-child');
+                    if (tabSpan && tabSpan.textContent === activeFile) {
+                        tab.classList.add('active');
+                    }
+                });
+                
+                // Update files active state
+                document.querySelectorAll('.file').forEach(file => {
+                    file.classList.remove('active');
+                    const fileSpan = file.querySelector('span:last-child');
+                    if (fileSpan && fileSpan.textContent === activeFile) {
+                        file.classList.add('active');
+                    }
+                });
+            }
+            
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar && window.innerWidth > 992) {
+                    // Remove mobile sidebar toggle class on desktop
+                    sidebar.classList.remove('open');
+                }
+            });
+            
+           
+            
+            // Handle Livewire navigation events
+            document.addEventListener('livewire:navigated', function() {
+                // Update active states after navigation
+                setTimeout(updateActiveStates, 50); // Small delay to ensure DOM is updated
+                
+                // Close mobile sidebar after navigation
+                if (window.innerWidth <= 992) {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+            
+            // Handle Livewire page load
+            document.addEventListener('livewire:load', function() {
+                updateActiveStates();
+            });
+            
+            // ===============================
+            // INITIALIZATION
+            // ===============================
+            
+            // Initial setup when page loads
+            updateActiveStates();
+            
+        });
+
+        // ===============================
+        // KEYBOARD SUPPORT
+        // ===============================
+
+        // Add keyboard support for accessibility
+        document.addEventListener('keydown', function(event) {
+            // ESC key closes mobile sidebar
+            if (event.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar && sidebar.classList.contains('open') && window.innerWidth <= 992) {
+                    sidebar.classList.remove('open');
+                }
             }
         });
-
-        // Update tab and file active states when navigating
-        function updateActiveStates() {
-            // This would be more sophisticated in a real app with routing
-            // For now, we'll just simulate it based on URL
-            const path = window.location.pathname;
-            let activeFile = 'home.tsx';
-            
-            if (path.includes('about')) activeFile = 'about.html';
-            else if (path.includes('contact')) activeFile = 'contact.css';
-            else if (path.includes('app')) activeFile = 'app.js';
-            else if (path.includes('github')) activeFile = 'github.md';
-            
-            // Update tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-                if (tab.querySelector('span:last-child').textContent === activeFile) {
-                    tab.classList.add('active');
-                }
-            });
-            
-            // Update files
-            document.querySelectorAll('.file').forEach(file => {
-                file.classList.remove('active');
-                if (file.querySelector('span:last-child').textContent === activeFile) {
-                    file.classList.add('active');
-                }
-            });
-        }
-
-        // Call this function when the page loads
-        updateActiveStates();
     </script>
 
     @livewireScripts()
